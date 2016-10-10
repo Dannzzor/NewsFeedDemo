@@ -28,7 +28,7 @@ let App = React.createClass ({
 
   handleScroll(e) {
     let el = ReactDOM.findDOMNode(this);
-    if (el.scrollTop + el.offsetHeight === el.scrollHeight) {
+    if (el.scrollTop + el.offsetHeight + 50 >= el.scrollHeight) {
       this.setState({articleOffset: this.state.articleOffset + 10});
       this.loadMore();
     }
