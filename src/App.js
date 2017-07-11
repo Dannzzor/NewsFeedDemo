@@ -4,14 +4,17 @@ import Moment from 'moment';
 import Client from './Client';
 import './App.css';
 
-let App = React.createClass ({
-  getInitialState() {
-    return {
+
+class App extends React.Component {
+  constructor () {
+    super();
+
+    this.state = {
       articleOffset: 0,
       scrollPosition: 0,
       articles: []
     }
-  },
+  }
 
   componentDidMount() {
     const el = ReactDOM.findDOMNode(this);
@@ -19,26 +22,26 @@ let App = React.createClass ({
     Client.load(this.state.articleOffset, (results) => {
       this.setState({articles: results.news});
     });
-  },
+  }
 
   componentWillUnmount() {
     const el = ReactDOM.findDOMNode(this);
     el.removeEventListener('scroll', this.handleScroll);
-  },
+  }
 
-  handleScroll(e) {
+  handleScroll = (e) => {
     let el = ReactDOM.findDOMNode(this);
     if (el.scrollTop + el.offsetHeight + 50 >= el.scrollHeight) {
-      this.setState({articleOffset: this.state.articleOffset + 10});
+      this.setState((prevState) => ({articleOffset: prevState.articleOffset + 10}) );
       this.loadMore();
     }
-  },
+  }
 
-  loadMore() {
+  loadMore = () => {
     Client.load(this.state.articleOffset, (results) => {
-      this.setState({articles: this.state.articles.concat(results.news) });
+      this.setState((prevState) => ({articles: prevState.articles.concat(results.news) }) );
     });
-  },
+  }
 
   render() {
     return (
@@ -58,6 +61,6 @@ let App = React.createClass ({
       </div>
     );
   }
-});
+};
 
 export default App;

@@ -1,10 +1,11 @@
 function load(offset, callback) {
   const limit = 10;
-  return fetch(`http://www.stellarbiotechnologies.com/media/press-releases/json?limit=${limit}&offset=${offset}`, {
-    accept: 'application/json'
-  }).then(checkStatus)
-    .then(parseJSON)
-    .then(callback);
+  return fetch(
+    `http://www.stellarbiotechnologies.com/media/press-releases/json?limit=${limit}&offset=${offset}`,
+    {accept: 'application/json'}
+  ).then(checkStatus)
+   .then(parseJSON)
+   .then(callback);
 }
 
 function checkStatus(response) {
